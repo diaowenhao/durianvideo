@@ -15,12 +15,6 @@ import qf.com.durianvideo.R;
  */
 public class DiscoverFragment extends Fragment {
 
-
-    public DiscoverFragment() {
-        // Required empty public constructor
-    }
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
