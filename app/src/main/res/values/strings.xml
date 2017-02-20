@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">DurianVideo</string>
+
+
+    <string name="discover_search">搜索</string>
+    <string name="discover_attention">关注</string>
+    <string name="discover_channel">频道</string>
+    <string name="search_back">返回</string>
+    <string name="search_video">视频</string>
+    <string name="search_user">用户</string>
 </resources>

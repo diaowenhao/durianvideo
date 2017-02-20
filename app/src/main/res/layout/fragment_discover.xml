@@ -1,0 +1,117 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools"
+android:orientation="vertical"
+android:layout_width="match_parent"
+android:background="#E8E8E8"
+tools:context="qf.com.durianvideo.fragment.DiscoverFragment"
+android:layout_height="match_parent">
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="1"
+    android:orientation="horizontal"
+    >
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_weight="6"
+        android:layout_height="match_parent"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:background="@drawable/shape_corner">
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:padding="10dp"
+            android:src="@drawable/search"/>
+        <View
+            android:layout_width="1dp"
+            android:id="@+id/view1"
+            android:layout_margin="15dp"
+            android:layout_height="match_parent"
+            android:background="#000"/>
+        <EditText
+            android:layout_width="0dp"
+            android:layout_weight="4"
+            android:background="@null"
+            android:textColor="#000"
+            android:hint="@string/discover_search"
+            android:textColorHint="#C0C0C0"
+            android:layout_height="match_parent"
+            android:id="@+id/discover_et_search"/>
+    </LinearLayout>
+    <TextView
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:textColor="#FF8080"
+        android:textStyle="bold"
+        android:layout_gravity="center"
+        android:onClick="ClickofDiscover"
+        android:text="@string/discover_search"/>
+</LinearLayout>
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="1"
+    android:background="#fff"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="right|center_vertical"
+            android:paddingRight="30dp"
+            android:textColor="#FF8080"
+            android:text="@string/discover_attention"
+            android:onClick="ClickofDiscover"/>
+        <View
+            android:layout_width="90dp"
+            android:layout_height="1dp"
+            android:background="#FF8080"
+            android:layout_gravity="right"
+            android:id="@+id/discover_v_attention"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:layout_height="match_parent">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:paddingLeft="30dp"
+            android:textColor="#FF8080"
+            android:text="@string/discover_channel"
+            android:onClick="ClickofDiscover"/>
+        <View
+            android:layout_width="90dp"
+            android:layout_height="1dp"
+            android:background="#FF8080"
+            android:layout_gravity="left"
+            android:visibility="gone"
+            android:id="@+id/discover_v_channel"/>
+    </LinearLayout>
+
+</LinearLayout>
+<FrameLayout
+    android:id="@+id/discover_fl_replace"
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="9">
+</FrameLayout>
+</LinearLayout>
