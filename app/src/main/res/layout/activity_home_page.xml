@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_home_page"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!--放各种复杂的东西,加载碎片-->
+    <FrameLayout
+        android:id="@+id/fram_home"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></FrameLayout>
+
+    <!--下面的选择栏-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        >
+        <LinearLayout
+            android:id="@+id/home"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:onClick="onChooce">
+            <ImageView
+                android:id="@+id/home_click"
+                android:src="@drawable/main_ic_btn"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center_horizontal"/>
+            <TextView
+                android:id="@+id/home_text"
+                android:text="@string/home"
+                android:textSize="12dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/find"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:onClick="onChooce">
+            <ImageView
+
+                android:id="@+id/find_click"
+                android:src="@drawable/main_find"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+
+                android:layout_gravity="center_horizontal"/>
+            <TextView
+                android:textSize="12dp"
+                android:text="@string/find"
+                android:id="@+id/find_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"/>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/compete"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:onClick="onChooce">
+            <ImageView
+
+                android:id="@+id/compete_click"
+                android:src="@drawable/main_dingyue"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+
+                android:layout_gravity="center_horizontal"/>
+            <TextView
+                android:textSize="12dp"
+                android:text="@string/compete"
+                android:id="@+id/compete_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/mine"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:onClick="onChooce">
+            <ImageView
+
+                android:id="@+id/mine_click"
+                android:src="@drawable/main_mine"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+
+                android:layout_gravity="center_horizontal"/>
+            <TextView
+                android:textSize="12dp"
+                android:text="@string/mine"
+                android:id="@+id/mine_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"/>
+
+        </LinearLayout>
+
+
+
+
+
+
+    </LinearLayout>
+
+</RelativeLayout>
