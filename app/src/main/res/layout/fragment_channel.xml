@@ -9,4 +9,8 @@
         android:id="@+id/channel_gv_channel"
         android:numColumns="3">
     </GridView>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="12344"/>
 </FrameLayout>

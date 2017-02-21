@@ -59,12 +59,14 @@
          android:textColor="#2B2B2B"
          android:id="@+id/attentionitem_tv_videoname"
          />
+
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="6"
         android:id="@+id/attentionitem_imge_video"
         android:background="@drawable/shape_corner"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"

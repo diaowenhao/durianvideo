@@ -5,9 +5,9 @@
     android:background="#E8E8E8"
     tools:context="qf.com.durianvideo.fragment.AttentionFragment">
 
-    <ListView
+    <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/attentionFragment_lv">
-    </ListView>
+        android:id="@+id/attentionFragment_rv">
+    </android.support.v7.widget.RecyclerView>
 </FrameLayout>
