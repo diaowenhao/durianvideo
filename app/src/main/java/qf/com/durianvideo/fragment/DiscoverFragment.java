@@ -2,6 +2,7 @@ package qf.com.durianvideo.fragment;
 
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -42,7 +43,7 @@ public class DiscoverFragment extends Fragment  implements ViewPager.OnPageChang
 
 
         initPager();
-        discover_viewPager.setAdapter(new MyAdapterofDiscover(getActivity().getSupportFragmentManager(),pagerList));
+        discover_viewPager.setAdapter(new MyAdapterofDiscover(getChildFragmentManager(),pagerList));
         discover_viewPager.addOnPageChangeListener(this);
         return view;
 

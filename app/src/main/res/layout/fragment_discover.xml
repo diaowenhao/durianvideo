@@ -10,22 +10,23 @@ android:layout_height="match_parent">
     android:layout_width="match_parent"
     android:layout_height="0dp"
     android:layout_weight="1"
+    android:background="#FAFAFA"
     android:orientation="horizontal"
     >
     <LinearLayout
         android:layout_width="0dp"
         android:layout_weight="6"
         android:layout_height="match_parent"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:background="@drawable/shape_corner">
         <ImageView
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="match_parent"
-            android:padding="10dp"
+            android:padding="20dp"
             android:src="@drawable/search"/>
         <View
             android:layout_width="1dp"
@@ -50,6 +51,7 @@ android:layout_height="match_parent">
         android:textColor="#FF8080"
         android:textStyle="bold"
         android:layout_gravity="center"
+        android:textSize="20sp"
         android:id="@+id/discover_tv_search"
         android:text="@string/discover_search"/>
 </LinearLayout>
@@ -57,7 +59,7 @@ android:layout_height="match_parent">
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="0dp"
-    android:layout_weight="1"
+    android:layout_weight="0.6"
     android:background="#fff"
     android:orientation="horizontal">
 
@@ -75,6 +77,7 @@ android:layout_height="match_parent">
             android:paddingRight="30dp"
             android:textColor="#FF8080"
             android:text="@string/discover_attention"
+            android:textSize="15sp"
             android:id="@+id/discover_tv_attention"
            />
         <View
@@ -98,6 +101,7 @@ android:layout_height="match_parent">
             android:paddingLeft="30dp"
             android:textColor="#000"
             android:text="@string/discover_channel"
+            android:textSize="15sp"
             android:id="@+id/discover_tv_channel"
            />
         <View
@@ -110,10 +114,11 @@ android:layout_height="match_parent">
     </LinearLayout>
 
 </LinearLayout>
-<android.support.v4.view.ViewPager
-    android:id="@+id/discover_viewPager"
-    android:layout_width="match_parent"
-    android:layout_height="0dp"
-    android:layout_weight="9">
-</android.support.v4.view.ViewPager>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/discover_viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="9">
+    </android.support.v4.view.ViewPager>
 </LinearLayout>
