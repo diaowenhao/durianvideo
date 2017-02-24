@@ -14,12 +14,17 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
 import qf.com.durianvideo.R;
 import qf.com.durianvideo.activity.SearchActivity;
 import qf.com.durianvideo.adapter.MyAdapterofDiscover;
+import qf.com.durianvideo.util.MyhttpUtils;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -30,23 +35,35 @@ public class DiscoverFragment extends Fragment  implements ViewPager.OnPageChang
    private  TextView  discover_tv_channel,discover_tv_attention,discover_tv_search;
     private  View discover_v_channel,discover_v_attention,view;
     private EditText discover_et_search;
+    private   String edthintpath="http://www.liulianvideo.com:8088/filmDataSys/movieTagController/getMovieTagRandom.html";
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
 
-       view= inflater.inflate(R.layout.fragment_discover, container, false);
-
+        view= inflater.inflate(R.layout.fragment_discover, container, false);
 
         findid();
         setlistent();
 
-
         initPager();
         discover_viewPager.setAdapter(new MyAdapterofDiscover(getChildFragmentManager(),pagerList));
         discover_viewPager.addOnPageChangeListener(this);
-        return view;
+        setedthint();
 
+        return view;
+    }
+    private void setedthint() {
+        new MyhttpUtils(getActivity(), new MyhttpUtils.GetStringBack() {
+            @Override
+            public void getString(String str) {
+                try {
+                    JSONObject j =new JSONObject(str);
+                    discover_et_search.setHint(j.getString("keyWord"));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).download(edthintpath);
     }
 
     private void setlistent() {
@@ -57,7 +74,6 @@ public class DiscoverFragment extends Fragment  implements ViewPager.OnPageChang
     }
 
     private void findid() {
-
         discover_viewPager = (ViewPager) view.findViewById(R.id.discover_viewPager);
 
         discover_tv_channel= (TextView) view.findViewById(R.id.discover_tv_channel);
@@ -69,16 +85,12 @@ public class DiscoverFragment extends Fragment  implements ViewPager.OnPageChang
 
 
         discover_et_search= (EditText) view.findViewById(R.id.discover_et_search);
-
-
     }
 
     private void initPager() {
         pagerList.add(new AttentionFragment());
         pagerList.add(new ChannelFragment());
     }
-
-
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -99,7 +111,6 @@ public class DiscoverFragment extends Fragment  implements ViewPager.OnPageChang
 
     @Override
     public void onPageScrollStateChanged(int state) {
-
 
     }
 
