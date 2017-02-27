@@ -1,82 +1,16 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="#fff"
     tools:context="qf.com.durianvideo.fragment.HomePageFragment">
 
-    <TextView
-        android:text="占个位置"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-    <!--广告轮播-->
-    <android.support.v4.view.ViewPager
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/home_viewpager">
-
-    </android.support.v4.view.ViewPager>
-
-    <!--四个图标选项-->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
-
-    <!--1 标题栏 —— 最新番篇-->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"></LinearLayout>
-
-    <!--放视频-->
     <android.support.v7.widget.RecyclerView
+        android:id="@+id/mRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-
-        >
-    </android.support.v7.widget.RecyclerView>
-
-
-    <!--2 标题栏 —— 本周最热-->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"></LinearLayout>
-
-    <!--放视频-->
-    <android.support.v7.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-
-        >
+        android:layout_height="match_parent">
 
     </android.support.v7.widget.RecyclerView>
 
-    <!--3 标题栏 —— 最新视频-->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"></LinearLayout>
-
-    <!--放视频-->
-    <android.support.v7.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
-
-    </android.support.v7.widget.RecyclerView>
-</LinearLayout>
+</RelativeLayout>
