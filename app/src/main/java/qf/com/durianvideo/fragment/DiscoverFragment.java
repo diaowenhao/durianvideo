@@ -140,6 +140,7 @@ public class DiscoverFragment extends Fragment  implements ViewPager.OnPageChang
                 Intent  intent =new Intent(getActivity(), SearchActivity.class);
                 intent.putExtra("search",discover_et_search.getText().toString().trim());
                 startActivity(intent);
+                getActivity().finish();
                 break;
 
         }

@@ -38,7 +38,12 @@ public class HomePageActivity extends AppCompatActivity {
         fm = getSupportFragmentManager();
         ft = fm.beginTransaction();
         //刚开始为首页
-        ft.replace(R.id.fram_home,fragment_home_page).commit();
+        ft.add(R.id.fram_home,fragment_home_page);
+        ft.add(R.id.fram_home,discoverFragment);
+        ft.show(fragment_home_page);
+        ft.hide(discoverFragment);
+        ft.commit();
+
     }
 
 
@@ -57,9 +62,10 @@ public class HomePageActivity extends AppCompatActivity {
                 competeText.setTextColor(0xff000000);
                 mineText.setTextColor(0xff000000);
                 //然后各自设置碎片
-                fm = getSupportFragmentManager();
                 ft = fm.beginTransaction();
-                ft.replace(R.id.fram_home,fragment_home_page).commit();
+                ft.show(fragment_home_page);
+                ft.hide(discoverFragment);
+                ft.commit();
                 break;
             case R.id.find:
                 refreshImage(R.drawable.main_ic,R.drawable.main_find_btn,
@@ -69,9 +75,10 @@ public class HomePageActivity extends AppCompatActivity {
                 competeText.setTextColor(0xff000000);
                 mineText.setTextColor(0xff000000);
                 //然后各自设置碎片
-                fm = getSupportFragmentManager();
                 ft = fm.beginTransaction();
-                ft.replace(R.id.fram_home,discoverFragment).commit();
+                ft.show(discoverFragment);
+                ft.hide(fragment_home_page);
+                ft.commit();
                 break;
             case R.id.compete:
                 refreshImage(R.drawable.main_ic,R.drawable.main_find,
@@ -117,5 +124,7 @@ public class HomePageActivity extends AppCompatActivity {
         fragment_home_page = new HomePageFragment();
          //发现功能的碎片
         discoverFragment=new DiscoverFragment();
+
+
     }
 }

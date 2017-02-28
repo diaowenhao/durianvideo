@@ -145,14 +145,14 @@ public class MyAdapterOfAttention  extends RecyclerView.Adapter<MyAdapterOfAtten
             }
         }
 
-
-
-
     }
 
     @Override
     public int getItemCount() {
-        return (attentionlist.size()+1);
+        int asize=attentionlist.size();
+
+            return asize+1;
+
     }
 
     class  MyViewHoldera extends RecyclerView.ViewHolder{

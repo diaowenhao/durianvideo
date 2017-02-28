@@ -178,7 +178,6 @@ public class AttentionFragment extends Fragment {
                                     attentionAdapter.notifyDataSetChanged();
                                     headerAndFooterWrapper.notifyDataSetChanged();
                                 }
-
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
@@ -193,7 +192,6 @@ public class AttentionFragment extends Fragment {
         @Override
         public void onLoadingMore() {
 //            执行上拉加载操作，一般是联网请求更多分页数据
-            if(dataattentionlist.size()>0){
 
                 page += 1;
                 new Thread(new Runnable() {
@@ -224,9 +222,6 @@ public class AttentionFragment extends Fragment {
                         handler.sendEmptyMessage(LOADMORE);
                     }
                 }).start();
-            }
-
-
 
         }
 
