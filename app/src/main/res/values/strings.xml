@@ -13,6 +13,9 @@
     <string name="search_video">视频</string>
     <string name="search_user">用户</string>
 
+    <string name="recommendlayout">这些小主都可以约哦</string>
+
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 

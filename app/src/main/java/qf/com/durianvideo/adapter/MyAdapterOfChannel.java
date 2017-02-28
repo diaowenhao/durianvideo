@@ -73,7 +73,7 @@ public class MyAdapterOfChannel extends BaseAdapter{
         try {
             myholder.channelitem_tv_channel.setText(jsonObject.getString("typeName").trim());
             myholder.channelitem_tv_channel.setTag(jsonObject.getString("typeId"));
-            Glide.with(context).load(jsonObject.getString("typePic").trim()).placeholder(R.mipmap.ic_launcher).transform(new CornersTransform(context,5)).error(android.R.drawable.ic_menu_close_clear_cancel).into(myholder.channelitem_img_channel);
+            Glide.with(context).load(jsonObject.getString("typePic").trim()).placeholder(R.drawable.buffer).transform(new CornersTransform(context,5)).error(android.R.drawable.ic_menu_close_clear_cancel).into(myholder.channelitem_img_channel);
 
         } catch (JSONException e) {
             e.printStackTrace();

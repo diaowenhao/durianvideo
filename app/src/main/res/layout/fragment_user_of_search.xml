@@ -2,11 +2,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="qf.com.durianvideo.fragment.userOfSearchFragment">
+    tools:context="qf.com.durianvideo.fragment.UserOfSearchFragment">
 
-   <ListView
-       android:layout_width="match_parent"
-       android:layout_height="match_parent"
-       android:id="@+id/userOfSearch_lv_user">
-   </ListView>
+ <com.example.refreshrecyclerview_library.RefreshRecyclerView
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+     android:id="@+id/search_user_recyclerview"
+     android:cacheColorHint="@android:color/transparent"
+     android:divider="@null"
+     android:fadingEdge="none"/>
+ <TextView
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     android:layout_gravity="center"
+     android:textColor="#000"
+     android:text="暂无内容"
+     android:visibility="gone"
+     android:id="@+id/search_user_tv"/>
+
 </FrameLayout>

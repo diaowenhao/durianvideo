@@ -16,7 +16,6 @@ import com.lidroid.xutils.http.client.HttpRequest;
 
 public class MyhttpUtils  {
 
-
     Context  context;
   private   HttpUtils httpUtils ;
    private   GetStringBack getStringBack;
@@ -24,22 +23,18 @@ public class MyhttpUtils  {
         this.context=context;
         this.getStringBack=getStringBack;
     }
-    public  void    getString(String url){
+    public  void   download(final String url){
         httpUtils = new HttpUtils();
-        httpUtils.configTimeout(20000);
         httpUtils.send(HttpRequest.HttpMethod.GET, url, null, new RequestCallBack<String>() {
-
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
                 getStringBack.getString(responseInfo.result);
             }
-
             @Override
             public void onFailure(HttpException error, String msg) {
-                Toast.makeText(context,"没有更多数据！",Toast.LENGTH_SHORT).show();
+
             }
         });
-
     }
 
   public interface   GetStringBack{

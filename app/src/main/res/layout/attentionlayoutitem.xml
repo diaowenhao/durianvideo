@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:paddingLeft="20dp"
     android:paddingRight="20dp"
     android:orientation="vertical"
@@ -88,7 +88,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:text="213"
                 android:textColor="#000"
                 android:id="@+id/attentionitem_tv_videolength"/>
         </LinearLayout>
@@ -114,7 +113,6 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:textColor="#000"
-                android:text="123"
                 android:id="@+id/attentionitem_tv_playtime"/>
         </LinearLayout>
         <View
@@ -140,9 +138,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/attentionitem_tv_messages"
                 android:textColor="#000"
-                android:layout_gravity="center_vertical"
-                android:text="123"/>
-
+                android:layout_gravity="center_vertical" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

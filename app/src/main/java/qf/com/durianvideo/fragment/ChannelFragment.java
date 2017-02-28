@@ -49,13 +49,7 @@ public class ChannelFragment extends Fragment {
         channel_gv_channel= (GridView) view.findViewById(R.id.channel_gv_channel);
         myadapter=new MyAdapterOfChannel(list,context);
         channel_gv_channel.setAdapter(myadapter);
-
          initData();
-
-
-        Log.e("----=",list.toString());
-
-
         return view;
     }
 
@@ -72,23 +66,17 @@ public class ChannelFragment extends Fragment {
                  try {
                      JSONObject json=new JSONObject(str);
                      JSONArray  jsonarray=json.getJSONArray("movieTypes");
-                     Log.e("===-",jsonarray.toString());
                      int length=jsonarray.length();
-
                      for (int i=0;i<length;i++){
-
                          list.add(jsonarray.getJSONObject(i));
                      }
                      myadapter.notifyDataSetChanged();
                  } catch (JSONException e) {
                      e.printStackTrace();
                  }
-
              }
          }
-     }).getString(url);
-
-
+     }).download(url);
     }
 
 
