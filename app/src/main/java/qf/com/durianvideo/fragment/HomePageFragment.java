@@ -14,6 +14,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,6 +33,9 @@ import qf.com.durianvideo.util.MyhttpUtils;
  *
  * 那么每个item配套的都是一个json数组，先以string的形式传进去
  *
+ * 遇到一个问题，内层adapter跟外层adapter之间有冲突，要改的话要动岳云写好的,我滴妈呀
+ * 换个方法。。。。。
+ *
  **/
 public class HomePageFragment extends Fragment {
     private RecyclerView mRecyclerView;
@@ -36,6 +43,8 @@ public class HomePageFragment extends Fragment {
     private MyAdapterofHomePage mMyAdapterofHomePage;
     private View header;
     private ArrayList<String> datas=new ArrayList<String>();
+
+    private  String  userpath="http://www.liulianvideo.com:8088/filmDataSys/queryController/queryMovieByKeyword.html?pageNum=";
 
     private ViewPager mViewPager;
     private List<Integer> pagerList = new ArrayList<Integer>();
@@ -62,10 +71,25 @@ public class HomePageFragment extends Fragment {
     }
 
 
-    private void initData() {
-        for (int i=0;i<20;i++){
-            datas.add("中国"+i);
-        }
+    public void initData(){
+        final ArrayList<String> list = new ArrayList<String>();
+        new MyhttpUtils(mContext, new MyhttpUtils.GetStringBack() {
+            @Override
+            public void getString(String str) {
+                try {
+                    JSONObject jsonObject=new JSONObject(str);
+                    //下载数据到list中
+                    if (jsonObject.getString("success").equals("true")){
+
+                        list.add(str);
+                        mMyAdapterofHomePage.addDatas(list);
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).download(userpath);
     }
 
     public void setHeader(RecyclerView view) {
