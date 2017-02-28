@@ -39,7 +39,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:gravity="center_horizontal"
-                android:text="上次加载时间：2016-10-31"
                 android:textColor="#55000000"
                 android:textSize="16sp" />
 

@@ -3,6 +3,7 @@ package com.example.refreshrecyclerview_library;
 import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
@@ -60,6 +61,10 @@ public class RefreshRecyclerView extends RecyclerView {
     private int footerViewHeight;
 //    判断是否是加载更多
     private boolean isLoadingMore;
+
+
+    private boolean isRefresh;
+
     /**
      * 轮播图对象，在
      */
@@ -165,55 +170,66 @@ public class RefreshRecyclerView extends RecyclerView {
      */
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
-        switch (ev.getAction()) {
-            case MotionEvent.ACTION_DOWN:
-                startY = ev.getY();
-                break;
-            case MotionEvent.ACTION_MOVE:
-                //防止ACTION_DOWN事件被抢占，没有执行
-                if (startY == -1) {
+        if (isRefresh){
+
+            switch (ev.getAction()) {
+                case MotionEvent.ACTION_DOWN:
                     startY = ev.getY();
-                }
-                float endY = ev.getY();
-                float dY = endY - startY;
-                //判断当前是否正在刷新中
-                if (currState == REFRESHING) {
-                    //如果当前是正在刷新，不执行下拉刷新了，直接break;
                     break;
-                }
+                case MotionEvent.ACTION_MOVE:
+                    //防止ACTION_DOWN事件被抢占，没有执行
+                    if (startY == -1) {
+                        startY = ev.getY();
+                    }
+                    float endY = ev.getY();
+                    float dY = endY - startY;
+                    //判断当前是否正在刷新中
+                    if (currState == REFRESHING) {
+                        //如果当前是正在刷新，不执行下拉刷新了，直接break;
+                        break;
+                    }
 //                如果是下拉
-                if (dY > 0) {
-                    int paddingTop = (int) (dY - pulldownHeight);
-                    if (paddingTop > 0 && currState != RELEASE_REFRESH) {
-                        //完全显示下拉刷新控件，进入松开刷新状态
-                        currState = RELEASE_REFRESH;
-                        refreshViewState();
-                    } else if (paddingTop < 0 && currState != PULL_DOWN_REFRESH) {
-                        //没有完全显示下拉刷新控件，进入下拉刷新状态
-                        currState = PULL_DOWN_REFRESH;
-                        refreshViewState();
+                    if (dY > 0) {
+                        int paddingTop = (int) (dY - pulldownHeight);
+                        if (paddingTop > 0 && currState != RELEASE_REFRESH) {
+                            //完全显示下拉刷新控件，进入松开刷新状态
+                            currState = RELEASE_REFRESH;
+                            refreshViewState();
+                        } else if (paddingTop < 0 && currState != PULL_DOWN_REFRESH) {
+                            //没有完全显示下拉刷新控件，进入下拉刷新状态
+                            currState = PULL_DOWN_REFRESH;
+                            refreshViewState();
+                        }
+                        headerView.setPadding(0, paddingTop, 0, 0);
                     }
-                    headerView.setPadding(0, paddingTop, 0, 0);
-                }
-                break;
-            case MotionEvent.ACTION_UP:
-                //5.从新记录值
-                startY = -1;
-                if (currState == PULL_DOWN_REFRESH) {
-                    //设置默认隐藏
-                    headerView.setPadding(0, -pulldownHeight, 0, 0);
-                } else if (currState == RELEASE_REFRESH) {
-                    //当前是释放刷新，进入到正在刷新状态，完全显示
-                    currState = REFRESHING;
-                    refreshViewState();
-                    headerView.setPadding(0, 0, 0, 0);
-                    //调用用户的回调事件，刷新页面数据
-                    if (mOnRefreshListener != null) {
-                        mOnRefreshListener.onPullDownRefresh();
+                    break;
+                case MotionEvent.ACTION_UP:
+                    //5.从新记录值
+                    startY = -1;
+                    if (currState == PULL_DOWN_REFRESH) {
+                        //设置默认隐藏
+                        headerView.setPadding(0, -pulldownHeight, 0, 0);
+                    } else if (currState == RELEASE_REFRESH) {
+                        //当前是释放刷新，进入到正在刷新状态，完全显示
+                        currState = REFRESHING;
+                        refreshViewState();
+                        headerView.setPadding(0, 0, 0, 0);
+                        //调用用户的回调事件，刷新页面数据
+                        if (mOnRefreshListener != null) {
+                            isRefresh=false;
+                            mOnRefreshListener.onPullDownRefresh();
+                        }
                     }
-                }
-                break;
+                    break;
+            }
+
+
+
         }
+
+
+
+
         return super.onTouchEvent(ev);
     }
 
@@ -284,13 +300,19 @@ public class RefreshRecyclerView extends RecyclerView {
                     LinearLayoutManager linearLayoutManager = (LinearLayoutManager) layoutManager;
                     //当停止滚动时或者惯性滚动时，RecyclerView的最后一个显示的条目：getCount()-1
 //                    注意是findLastVisibleItemPosition()而不是getLastVisiblePosition
-                    if (linearLayoutManager.findLastVisibleItemPosition() >= getChildCount() - 1) {
+
+                    if (linearLayoutManager.findLastVisibleItemPosition() >= getChildCount()) {
                         isLoadingMore = true;
                         //把底部加载显示
                         footerView.setPadding(0, 0, 0, 0);
                         if (mOnRefreshListener != null) {
-                            mOnRefreshListener.onLoadingMore();
+                           mOnRefreshListener.onLoadingMore();
+                            isRefresh=false;
                         }
+                    }
+
+                    if(getChildAt(0).getY()==0f && linearLayoutManager.findFirstCompletelyVisibleItemPosition()==0){
+                        isRefresh=true;
                     }
                 }
             }
@@ -311,5 +333,7 @@ public class RefreshRecyclerView extends RecyclerView {
         void onLoadingMore();
 
     }
+
+
 
 }

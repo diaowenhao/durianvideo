@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.headerandfooterwrapper_library.HeaderAndFooterWrapper;
 import com.example.refreshrecyclerview_library.RefreshRecyclerView;
@@ -42,8 +43,10 @@ public class UserOfSearchFragment extends Fragment {
     private   Context  context;
     private   int  page=1;
     private String msg="";
-    private  String  userpath="http://www.liulianvideo.com:8088/filmDataSys/movieList/queryUserListByKeyWord.html?pageNum="+page+"&keyWord=";
-
+    private  String  userpath="http://www.liulianvideo.com:8088/filmDataSys/movieList/queryUserListByKeyWord.html?pageNum=";
+    private  String  keyword="&keyWord=";
+    private TextView  search_user_tv;
+    private  List<JSONObject>  getdatalist;
     private List<JSONObject>  datalist=new ArrayList<>();
 
     private Handler handler = new Handler(){
@@ -71,53 +74,54 @@ public class UserOfSearchFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_user_of_search, container, false);
         search_user_recyclerview = (RefreshRecyclerView)view.findViewById(R.id.search_user_recyclerview);
-
+        search_user_tv= (TextView) view.findViewById(R.id.search_user_tv);
 
         initRefreshRecyclerView();
         //获取到宿主activity传递过来的数据
         Bundle bundle = getArguments();
         if (bundle != null) {
              msg = bundle.getString("msg");
-                 initdata(userpath+msg);
+            new MyhttpUtils(context, new MyhttpUtils.GetStringBack() {
+                @Override
+                public void getString(String str) {
+                    getdatalist = new ArrayList<>();
+                    try {
+                        JSONObject jsonObject=new JSONObject(str);
+                        //下载数据到list中
+                        if (jsonObject.getString("success").equals("true")){
+                            JSONArray jsonArray=jsonObject.getJSONArray("userLists");
+                            int j=jsonArray.length();
+
+                            if (j>0){
+                                search_user_tv.setVisibility(View.GONE);
+                                for (int i=0;i<j;i++){
+                                    getdatalist.add(jsonArray.getJSONObject(i));
+                                }
+                            }
+                            else
+                            {
+                                search_user_tv.setVisibility(View.VISIBLE);
+                            }
+                            datalist.addAll(getdatalist);
+                            recyclerAdapter.notifyDataSetChanged();
+                            headerAndFooterWrapper.notifyDataSetChanged();
+
+                        }
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }).download(userpath+page+keyword+msg);
         }
 
         return view;
     }
 
-    private void initdata(String url) {
-        new MyhttpUtils(context, new MyhttpUtils.GetStringBack() {
-            @Override
-            public void getString(String str) {
-
-                try {
-                    JSONObject jsonObject=new JSONObject(str);
-                    //下载数据到list中
-                    if (jsonObject.getString("success").equals("true")){
-                        JSONArray jsonArray=jsonObject.getJSONArray("userLists");
-                            int j=jsonArray.length();
-                        Log.d("====",jsonArray.toString());
-                        for (int i=0;i<j;i++){
-
-                         datalist.add(jsonArray.getJSONObject(i));
-
-                        }
-                        recyclerAdapter.notifyDataSetChanged();
-                        headerAndFooterWrapper.notifyDataSetChanged();
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-            }
-        }).download(url);
-
-
-    }
-
     private void initRefreshRecyclerView() {
         search_user_recyclerview.addItemDecoration(new DividerItemDecoration(context, DividerItemDecoration.VERTICAL_LIST));
-        recyclerAdapter = new RefreshRecyclerViewAdapter(context,datalist);
-        Log.d("===---=",datalist.toString());
+        recyclerAdapter = new RefreshRecyclerViewAdapter(context,datalist,2);
+
         headerAndFooterWrapper = new HeaderAndFooterWrapper(recyclerAdapter);
 //        设置布局管理器
         search_user_recyclerview.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
@@ -131,35 +135,88 @@ public class UserOfSearchFragment extends Fragment {
         @Override
         public void onPullDownRefresh() {
 //           执行下拉刷新操作，一般是联网更新数据
+            page=1;
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    SystemClock.sleep(2000);
+
+                    new MyhttpUtils(context, new MyhttpUtils.GetStringBack() {
+                        @Override
+                        public void getString(String str) {
+                            getdatalist = new ArrayList<>();
+                            getdatalist.removeAll(getdatalist);
+                            getdatalist.clear();
+                            try {
+                                JSONObject jsonObject=new JSONObject(str);
+                                //下载数据到list中
+                                if (jsonObject.getString("success").equals("true")){
+                                    JSONArray jsonArray=jsonObject.getJSONArray("userLists");
+                                    int j=jsonArray.length();
+                                    for (int i=0;i<j;i++){
+                                        getdatalist.add(jsonArray.getJSONObject(i));
+                                    }
+                                    datalist.clear();
+                                    datalist.addAll(0,getdatalist);
+                                    recyclerAdapter.notifyDataSetChanged();
+                                    headerAndFooterWrapper.notifyDataSetChanged();
+                                }
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
+                        }
+                    }).download(userpath+1+keyword+msg);
+                    SystemClock.sleep(1000);
                     handler.sendEmptyMessage(REFRESH);
                 }
             }).start();
 
-            initdata(userpath+page);
-            recyclerAdapter.notifyDataSetChanged();
-            headerAndFooterWrapper.notifyDataSetChanged();
         }
 
         @Override
         public void onLoadingMore() {
 //            执行上拉加载操作，一般是联网请求更多分页数据
+            page+=1;
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    SystemClock.sleep(2000);
+
+                    new MyhttpUtils(context, new MyhttpUtils.GetStringBack() {
+                        @Override
+                        public void getString(String str) {
+                            getdatalist = new ArrayList<>();
+                            getdatalist.removeAll(getdatalist);
+                            getdatalist.clear();
+                            try {
+                                JSONObject jsonObject=new JSONObject(str);
+                                //下载数据到list中
+                                if (jsonObject.getString("success").equals("true")){
+                                    JSONArray jsonArray=jsonObject.getJSONArray("userLists");
+                                    int j=jsonArray.length();
+                                    for (int i=0;i<j;i++){
+                                        getdatalist.add(jsonArray.getJSONObject(i));
+                                    }
+                                }
+                                datalist.addAll(getdatalist);
+                                recyclerAdapter.notifyDataSetChanged();
+                                headerAndFooterWrapper.notifyDataSetChanged();
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
+                        }
+                    }).download(userpath+page+keyword+msg);
+                    SystemClock.sleep(1000);
                     handler.sendEmptyMessage(LOADMORE);
                 }
             }).start();
-            page+=1;
-            initdata(userpath+page);
-            recyclerAdapter.notifyDataSetChanged();
-            headerAndFooterWrapper.notifyDataSetChanged();
+
+
         }
     }
 
 
 }
+

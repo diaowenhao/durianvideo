@@ -37,6 +37,8 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     private void initfragment() {
+
+
         userOfSearchFragment=new UserOfSearchFragment();
         videoOfSearchFragment=new VideoOfSearchFragment();
 
@@ -44,15 +46,11 @@ public class SearchActivity extends AppCompatActivity {
         bundle.putString("msg", search_et_search.getText().toString().trim());
         userOfSearchFragment.setArguments(bundle);
         videoOfSearchFragment.setArguments(bundle);
-
-
         transaction=manager.beginTransaction();
-        transaction.add(R.id.search_fl_replace,userOfSearchFragment);
         transaction.add(R.id.search_fl_replace,videoOfSearchFragment);
-        transaction.show(videoOfSearchFragment);
-        transaction.hide(userOfSearchFragment);
+        transaction.add(R.id.search_fl_replace,userOfSearchFragment);
         transaction.commit();
-
+        videoselect();
 
     }
     private void findid() {
@@ -75,21 +73,25 @@ public class SearchActivity extends AppCompatActivity {
                 finish();
                 break;
             case  R.id.search_tv_search:
+                transaction=manager.beginTransaction();
+                transaction.remove(userOfSearchFragment);
+                transaction.remove(videoOfSearchFragment);
+                transaction.commit();
                 //点击搜索后重新初始化碎片，并传值
                 initfragment();
                 //通过video下划线的显示与隐藏判断当前显示的碎片并更新界面
-                videoselect();
+
                break;
             case R.id.search_tv_video:
                 search_tv_video.setTextColor(Color.rgb(255,128,128));
                 search_tv_user.setTextColor(Color.rgb(0,0,0));
                 search_v_video.setVisibility(View.VISIBLE);
                 search_v_user.setVisibility(View.GONE);
-
                 transaction=manager.beginTransaction();
-                transaction.show(videoOfSearchFragment);
                 transaction.hide(userOfSearchFragment);
+                transaction.show(videoOfSearchFragment);
                 transaction.commit();
+
                 break;
             case R.id.search_tv_user:
                 search_tv_video.setTextColor(Color.rgb(0,0,0));
@@ -97,8 +99,8 @@ public class SearchActivity extends AppCompatActivity {
                 search_v_video.setVisibility(View.GONE);
                 search_v_user.setVisibility(View.VISIBLE);
                 transaction=manager.beginTransaction();
-                transaction.show(userOfSearchFragment);
                 transaction.hide(videoOfSearchFragment);
+                transaction.show(userOfSearchFragment);
                 transaction.commit();
                 break;
         }

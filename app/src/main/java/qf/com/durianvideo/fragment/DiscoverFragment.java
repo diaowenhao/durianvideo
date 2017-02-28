@@ -36,6 +36,8 @@ public class DiscoverFragment extends Fragment  implements ViewPager.OnPageChang
     private  View discover_v_channel,discover_v_attention,view;
     private EditText discover_et_search;
     private   String edthintpath="http://www.liulianvideo.com:8088/filmDataSys/movieTagController/getMovieTagRandom.html";
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

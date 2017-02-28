@@ -2,12 +2,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#E8E8E8"
+    android:background="#fff"
     tools:context="qf.com.durianvideo.fragment.AttentionFragment">
-
-    <android.support.v7.widget.RecyclerView
+    <com.example.refreshrecyclerview_library.RefreshRecyclerView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/attentionFragment_rv">
-    </android.support.v7.widget.RecyclerView>
+        android:layout_height="wrap_content"
+        android:id="@+id/attentionFragment_rv"
+        android:cacheColorHint="@android:color/transparent"
+        android:divider="@null"
+        android:fadingEdge="none">
+    </com.example.refreshrecyclerview_library.RefreshRecyclerView>
 </FrameLayout>
