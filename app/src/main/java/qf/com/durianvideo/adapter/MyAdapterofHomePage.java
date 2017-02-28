@@ -9,25 +9,37 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.headerandfooterwrapper_library.HeaderAndFooterWrapper;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import qf.com.durianvideo.R;
+import qf.com.durianvideo.util.MyhttpUtils;
 
 /**
  * Created by lenovo on 2017/2/27.
  */
 
 public class MyAdapterofHomePage extends BaseRecyclerAdapter<String>{
-    Context mContext;
-    List<String> datas=new ArrayList<String>();
+    private Context mContext;
 
-    InnerAdapterofHomePage mInnerAdapterofHomePage;
+    private  List<JSONObject>  getdatalist;
+    private RefreshRecyclerViewAdapter recyclerAdapter;
+    //视频链接
+    private  String  userpath="http://www.liulianvideo.com:8088/filmDataSys/queryController/queryMovieByKeyword.html?pageNum=";
+    private List<JSONObject>  datalist=new ArrayList<>();
+    private   int  page=1;
+    //private HeaderAndFooterWrapper headerAndFooterWrapper;
+    private RecyclerView mRecyclerView1;
 
-    public MyAdapterofHomePage( Context mContext, List<String> datas){
+    public MyAdapterofHomePage( Context mContext){
         super(mContext);
         this.mContext = mContext;
-        this.datas = datas;
     }
 
     @Override
@@ -40,27 +52,66 @@ public class MyAdapterofHomePage extends BaseRecyclerAdapter<String>{
     @Override
     public void onBind(RecyclerView.ViewHolder viewHolder, int RealPosition, String data) {
         if(viewHolder instanceof MyHolder) {
-            ((MyHolder) viewHolder).text.setText(datas.get(RealPosition));
+            //这里还要加东西的
+            //((MyHolder) viewHolder).text.setText(datas.get(RealPosition));
+
+            //设置成列表显示的
+            ((MyHolder) viewHolder).mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
+            //设置适配器---还没有整完
+            recyclerAdapter = new RefreshRecyclerViewAdapter(mContext,datalist,1);
+            initData();
+            ((MyHolder) viewHolder).mRecyclerView.setAdapter(recyclerAdapter);
         }
     }
 
     class MyHolder extends BaseRecyclerAdapter.Holder {
-        TextView text;
         RecyclerView mRecyclerView;
+        private List<JSONObject>  datalist1;
         public MyHolder(View itemView) {
-        super(itemView);
-        text = (TextView) itemView.findViewById(R.id.text1);
-        mRecyclerView = (RecyclerView) itemView.findViewById(R.id.homepage_recycler);
-        initData();
-            //设置成列表显示的
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
-            //设置适配器---还没有整完
-            mInnerAdapterofHomePage = new InnerAdapterofHomePage(mContext);
-        mRecyclerView.setAdapter(mInnerAdapterofHomePage);
+            super(itemView);
+            mRecyclerView = (RecyclerView) itemView.findViewById(R.id.homepage_recycler);
     }
+        public RecyclerView getmRecyclerView(){
+            return mRecyclerView;
+        }
 
-        public void initData(){}
 }
+
+    public void initData(){
+
+        new MyhttpUtils(mContext, new MyhttpUtils.GetStringBack() {
+            @Override
+            public void getString(String str) {
+                getdatalist = new ArrayList<>();
+                try {
+                    JSONObject jsonObject=new JSONObject(str);
+                    //下载数据到list中
+                    if (jsonObject.getString("success").equals("true")){
+                        JSONArray jsonArray=jsonObject.getJSONArray("moveList");
+                        int j=jsonArray.length();
+
+                        if (j>0){
+                            //search_video_tv_no.setVisibility(View.GONE);
+                            for (int i=0;i<j;i++){
+                                getdatalist.add(jsonArray.getJSONObject(i));
+                            }
+                        }
+                        else
+                        {
+                            //search_video_tv_no.setVisibility(View.VISIBLE);
+                        }
+                        datalist.addAll(getdatalist);
+                        recyclerAdapter.notifyDataSetChanged();
+                        //headerAndFooterWrapper.notifyDataSetChanged();
+
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).download(userpath);
+    }
     /**
      * 创建ViewHolder这个模板的
      * @param parent

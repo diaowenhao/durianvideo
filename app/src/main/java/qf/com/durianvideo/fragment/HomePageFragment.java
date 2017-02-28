@@ -46,12 +46,12 @@ public class HomePageFragment extends Fragment {
         mContext = getActivity();
 
         //装数据——也就是把json数据下载之后，装载到list中，去适配器里面解析
-        initData();
+        //initData();
         mRecyclerView= (RecyclerView)view.findViewById(R.id.mRecyclerView);
         //设置成列表显示的
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         //设置适配器
-        mMyAdapterofHomePage = new MyAdapterofHomePage(mContext,datas);
+        mMyAdapterofHomePage = new MyAdapterofHomePage(mContext);
         mRecyclerView.setAdapter(mMyAdapterofHomePage);
         mMyAdapterofHomePage.addDatas(datas);
         //设置头部布局
@@ -80,6 +80,7 @@ public class HomePageFragment extends Fragment {
         mMyAdapterofHomePage.setHeaderView(header);
     }
 
+    //测试图片，待联网
     private void initPager(){
         pagerList.add(R.drawable.img012);
    		pagerList.add(R.drawable.img017);
