@@ -24,6 +24,7 @@ public class HomePageActivity extends AppCompatActivity {
     private TextView competeText;
     private TextView mineText;
     private DiscoverFragment discoverFragment;
+
     private FragmentManager fm;
     private Fragment fragment_home_page;
     private   FragmentTransaction ft;
@@ -56,6 +57,9 @@ public class HomePageActivity extends AppCompatActivity {
                 competeText.setTextColor(0xff000000);
                 mineText.setTextColor(0xff000000);
                 //然后各自设置碎片
+                fm = getSupportFragmentManager();
+                ft = fm.beginTransaction();
+                ft.replace(R.id.fram_home,fragment_home_page).commit();
                 break;
             case R.id.find:
                 refreshImage(R.drawable.main_ic,R.drawable.main_find_btn,
