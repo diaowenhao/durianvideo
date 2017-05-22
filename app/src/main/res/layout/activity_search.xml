@@ -21,12 +21,14 @@ tools:context="qf.com.durianvideo.activity.SearchActivity">
         android:layout_gravity="center"
         android:layout_margin="10dp"
         android:id="@+id/search_tv_back"
-        android:onClick="ClickofSearch"
+        android:onClick="saerchOnClick"
         android:text="@string/search_back"/>
     <EditText
         android:layout_width="0dp"
         android:layout_weight="8"
         android:layout_height="match_parent"
+        android:layout_margin="10dp"
+         android:padding="2dp"
         android:layout_gravity="center"
         android:textColor="#000"
         android:id="@+id/search_et_search"
@@ -38,7 +40,7 @@ tools:context="qf.com.durianvideo.activity.SearchActivity">
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="@string/discover_search"
-        android:onClick="ClickofSearch"
+        android:onClick="saerchOnClick"
         android:id="@+id/search_tv_search"
         android:textColor="#FF8080"/>
 </LinearLayout>
@@ -58,8 +60,9 @@ tools:context="qf.com.durianvideo.activity.SearchActivity">
             android:layout_weight="1"
             android:gravity="center"
             android:textColor="#FF8080"
-            android:text="@string/search_video"
-            android:onClick="ClickofSearch"/>
+            android:id="@+id/search_tv_video"
+            android:onClick="saerchOnClick"
+            android:text="@string/search_video" />
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
@@ -76,9 +79,10 @@ tools:context="qf.com.durianvideo.activity.SearchActivity">
             android:layout_height="0dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:textColor="#FF8080"
-            android:text="@string/search_user"
-            android:onClick="ClickofSearch"/>
+            android:id="@+id/search_tv_user"
+            android:onClick="saerchOnClick"
+            android:textColor="#000"
+            android:text="@string/search_user" />
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
@@ -87,10 +91,10 @@ tools:context="qf.com.durianvideo.activity.SearchActivity">
             android:id="@+id/search_v_user"/>
     </LinearLayout>
 </LinearLayout>
-<ListView
+<FrameLayout
     android:layout_width="match_parent"
     android:layout_height="0dp"
-    android:layout_weight="10">
-
-</ListView>
+    android:layout_weight="10"
+    android:id="@+id/search_fl_replace">
+</FrameLayout>
 </LinearLayout>
